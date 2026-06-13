@@ -30,6 +30,8 @@ body{
     #060b14;
 
     padding:18px;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* ===== CONTAINER ===== */
@@ -141,16 +143,16 @@ button{
 /* ===== INPUT ===== */
 input{
     width:100%;
-    padding:13px;
-    margin-top:50px;
+    padding:14px;
+    margin-top:12px;
 
-    border-radius:12px;
+    border-radius:14px;
     border:1px solid var(--border);
 
     background:rgba(10, 18, 32, 0.9);
     color:var(--text);
 
-    font-size:40px;
+    font-size:16px;   /* FIXED (was 40px ❌) */
 
     outline:none;
     transition:0.25s ease;
@@ -219,35 +221,45 @@ input::placeholder{
 @media (max-width: 600px){
 
     body{
-        padding:12px;
+        padding:0;              /* FULL SCREEN */
+        gap:12px;
+    }
+
+    .container{
+        max-width:100%;
+        width:100%;
     }
 
     h1{
-        font-size:30px;
+        font-size:22px;
+        padding:10px;
     }
 
     .card{
-        padding:20px;
-        border-radius:20px;
+        width:100%;
+        margin:10px;
+        padding:18px;
+        border-radius:18px;
     }
 
     button{
-        font-size:30px;
-        padding:24px;
+        font-size:14px;
+        padding:14px;
+        border-radius:12px;
     }
 
     input{
-        font-size:30px;
-        padding:24px;
+        font-size:16px;
+        padding:14px;
+        border-radius:12px;
     }
 
     .logo{
-        width:65px;
-        height:65px;
+        width:70px;
+        height:70px;
         font-size:28px;
     }
 }
-
 /* SMALL MOBILE */
 @media (max-width: 400px){
 
