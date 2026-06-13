@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title> Dashboard For Testing </title>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#3f56da,
+#5a56c7
+);
+
+color:white;
+
+padding:15px;
+
+overflow-x:hidden;
+
+}
+
+/* ---------- HEADER ---------- */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.title{
+
+font-size:32px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+.clock{
+
+font-size:20px;
+
+color:#38bdf8;
+
+}
+
+/* ---------- LAYOUT ---------- */
+
+.container{
+
+display:grid;
+
+grid-template-columns:
+
+240px 1fr;
+
+gap:20px;
+
+}
+
+.sidebar{
+
+background:
+
+rgba(255,255,255,.05);
+
+backdrop-filter:blur(18px);
+
+padding:20px;
+
+border-radius:22px;
+
+min-height:90vh;
+
+}
+
+.side-box{
+
+margin-bottom:18px;
+
+padding:14px;
+
+border-radius:14px;
+
+background:
+
+rgba(255,255,255,.04);
+
+}
+
+/* ---------- MAIN ---------- */
+
+.main{
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.cards{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(
+auto-fit,
+minmax(170px,1fr)
+);
+
+gap:18px;
+
+}
+
+.card{
+
+background:
+
+rgba(255,255,255,.05);
+
+padding:20px;
+
+border-radius:20px;
+
+text-align:center;
+
+backdrop-filter:blur(20px);
+
+transition:.3s;
+
+box-shadow:
+
+0 0 15px rgba(0,0,0,.25);
+
+}
+
+.card:hover{
+
+transform:
+
+translateY(-5px);
+
+box-shadow:
+
+0 0 25px rgba(56,189,248,.25);
+
+}
+
+.value{
+
+font-size:32px;
+
+font-weight:bold;
+
+}
+
+/* ---------- STATUS COLORS ---------- */
+
+.on{
+
+color:#22c55e;
+
+text-shadow:
+
+0 0 15px #22c55e;
+
+}
+
+.off{
+
+color:#ef4444;
+
+}
+
+.warning{
+
+color:#f59e0b;
+
+}
+
+/* ---------- TANK + CHART ---------- */
+
+.middle{
+
+display:grid;
+
+grid-template-columns:
+
+360px 1fr;
+
+gap:20px;
+
+}
+
+.tank-card{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.tank{
+
+width:280px;
+
+height:280px;
+
+border-radius:50%;
+
+border:8px solid white;
+
+overflow:hidden;
+
+position:relative;
+
+box-shadow:
+
+0 0 30px rgba(255,255,255,.15);
+
+}
+
+.water{
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:0;
+
+background:
+
+linear-gradient(
+
+180deg,
+
+#38bdf8,
+
+#2563eb
+
+);
+
+transition:1s;
+
+}
+
+.water-text{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:
+
+translate(-50%,-50%);
+
+font-size:52px;
+
+font-weight:bold;
+
+z-index:10;
+
+}
+
+/* ---------- CONTROLS ---------- */
+
+.controls{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(
+auto-fit,
+minmax(150px,1fr)
+);
+
+gap:16px;
+
+}
+
+.control{
+
+background:
+
+rgba(255,255,255,.05);
+
+padding:18px;
+
+border-radius:18px;
+
+text-align:center;
+
+}
+
+/* ---------- BUTTONS ---------- */
+
+button{
+
+padding:12px 18px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+margin:6px;
+
+font-size:14px;
+
+font-weight:600;
+
+transition:.25s;
+
+color:white;
+
+background:#1e293b;
+
+}
+
+/* Hover */
+
+button:hover{
+
+transform:
+
+translateY(-3px);
+
+box-shadow:
+
+0 0 18px rgba(56,189,248,.4);
+
+background:#2563eb;
+
+}
+
+/* Click */
+
+button:active{
+
+transform:scale(.95);
+
+background:#16a34a;
+
+}
+
+/* Selected button */
+
+.active-btn{
+
+background:#22c55e !important;
+
+box-shadow:
+
+0 0 20px #22c55e;
+
+}
+
+/* Mode buttons */
+
+.btn{
+
+background:#2563eb;
+
+}
+
+.btn2{
+
+background:#dc2626;
+
+}
+
+/* ---------- ACTIVITY ---------- */
+
+.activity{
+
+height:180px;
+
+overflow:auto;
+
+padding:12px;
+
+background:#05080f;
+
+border-radius:12px;
+
+font-size:13px;
+
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width:1200px){
+
+.middle{
+
+grid-template-columns:1fr;
+
+}
+
+.container{
+
+grid-template-columns:1fr;
+
+}
+
+.sidebar{
+
+min-height:auto;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.cards{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.value{
+
+font-size:24px;
+
+}
+
+.tank{
+
+width:230px;
+
+height:230px;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+<div class="header">
+
+<div class="title">
+
+ SMART DASHBOARD FOR TESTING 
+
+</div>
+
+<div id="clock"
+class="clock">
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="sidebar">
+
+<h2>System Panel</h2>
+
+<div class="side-box">
+
+ACK:
+
+<div id="ackStatus">
+
+WAITING...
+
+</div>
+
+</div>
+
+<div class="side-box">
+
+Mode:
+
+<div id="modeStatus">
+
+MANUAL
+
+</div>
+
+</div>
+
+<div class="side-box">
+
+Activity
+
+<div id="activity"
+
+class="activity">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Water</h3>
+
+<div id="waterLevel"
+class="value">
+
+0%
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>UP</h3>
+
+<div id="upStatus"
+class="value off">
+
+OFF
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>DOWN</h3>
+
+<div id="downStatus"
+class="value off">
+
+OFF
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>LEFT</h3>
+
+<div id="leftStatus"
+class="value off">
+
+OFF
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>RIGHT</h3>
+
+<div id="rightStatus"
+class="value off">
+
+OFF
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>COMMAND</h3>
+
+<div id="commandStatus"
+class="value">
+
+Neutral
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>SYSTEM</h3>
+
+<div id="systemStatus"
+class="value">
+
+OFFLINE
+
+</div>
+
+</div>
+
+</div>
+
+<div class="middle">
+
+<div class="card tank-card">
+
+<div class="tank">
+
+<div id="waterFill"
+
+class="water">
+
+</div>
+
+<div id="tankText"
+
+class="water-text">
+
+0%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<canvas id="waterChart">
+
+</canvas>
+
+</div>
+
+</div>
+
+<div class="control">
+
+<h3>Mode</h3>
+
+<button class="btn"
+
+onclick="setMode('manual')">
+
+MANUAL
+
+</button>
+
+<button class="btn2"
+
+onclick="setMode('random')">
+
+RANDOM
+
+</button>
+<button onclick="startJson()">
+PLAY JSON
+</button>
+
+</div>
+
+<div class="controls">
+
+<button onclick="control('Up')">Lift</button>
+
+<button onclick="control('Down')">Drop</button>
+
+<button onclick="control('Left')">LEFT</button>
+
+<button onclick="control('Right')">RIGHT</button>
+
+<button onclick="control('Rotate_Left')">ROTATE L</button>
+
+<button onclick="control('Rotate_Right')">ROTATE R</button>
+
+<button onclick="control('Push')">PUSH</button>
+
+<button onclick="control('Pull')">PULL</button>
+
+<button onclick="control('Neutral')">STOP</button>
+</button>
+<!---
+<button id="openBleBtn">📡 BLE Provisioning</button>
+-->
+<button onclick="openBLE()">
+    📡 BLE Provisioning
+</button>
+
+</div>
+
+<script>
+/* ------------------------------------ javascript functions -------------------------------------------------------------------------------------------------------*/
+const socket = io();
+
+function control(cmd){
+
+fetch(`/device/${cmd}`);
+
+log(cmd);
+
+}
+
+function setMode(mode){
+
+fetch(`/mode/${mode}`);
+
+document.getElementById(
+
+"modeStatus"
+
+).innerHTML=
+
+mode.toUpperCase();
+
+}
+
+function log(text){
+
+let a = document.getElementById(
+
+"activity"
+
+);
+
+a.innerHTML += text+"<br>";
+
+a.scrollTop=a.scrollHeight;
+
+}
+
+function updateStatus(id,val){
+
+let e=document.getElementById(id);
+
+if(!e)return;
+
+e.innerHTML=val;
+
+e.className=
+
+(val==="ON" ||
+
+val==="ONLINE")
+
+?
+
+"value on"
+
+:
+
+"value off";
+
+}
+
+function updateUI(data){
+
+if(data.mode){
+
+    document.getElementById(
+        "modeStatus"
+    ).innerHTML = data.mode;
+
+}
+
+document.getElementById(
+
+"waterLevel"
+
+).innerHTML=
+
+data.water+"%";
+
+
+document.getElementById(
+
+"tankText"
+
+).innerHTML=
+
+data.water+"%";
+
+document.getElementById(
+
+"waterFill"
+
+).style.height=
+
+data.water+"%";
+
+updateStatus(
+
+"upStatus",
+
+data.up
+
+);
+
+updateStatus(
+
+"downStatus",
+
+data.down
+
+);
+
+updateStatus(
+
+"leftStatus",
+
+data.left
+
+);
+
+updateStatus(
+
+"rightStatus",
+
+data.right
+
+);
+
+updateStatus(
+
+"systemStatus",
+
+data.system
+
+);
+
+document.getElementById(
+
+"commandStatus"
+
+).innerHTML=
+
+data.command;
+
+document.getElementById(
+
+"ackStatus"
+
+).innerHTML=
+
+data.ack;
+
+}
+
+setInterval(()=>{
+
+document.getElementById(
+
+"clock"
+
+).innerHTML=
+
+new Date()
+
+.toLocaleTimeString();
+
+},1000);
+
+const ctx=
+
+document.getElementById(
+
+"waterChart"
+
+).getContext("2d");
+
+const chart=new Chart(ctx,{
+
+type:"line",
+
+data:{
+
+labels:[],
+
+datasets:[{
+
+label:"Water",
+
+data:[],
+
+borderColor:"#38bdf8"
+
+}]
+
+}
+
+});
+
+socket.on(
+
+"mqtt_data",
+
+(data)=>{
+
+updateUI(data);
+
+chart.data.labels.push(
+
+new Date()
+
+.toLocaleTimeString()
+
+);
+
+chart.data.datasets[0]
+
+.data.push(
+
+data.water || 0
+
+);
+
+if(
+
+chart.data.labels.length>25
+
+){
+
+chart.data.labels.shift();
+
+chart.data.datasets[0]
+
+.data.shift();
+
+}
+
+chart.update();
+
+}
+
+);
+
+document.querySelectorAll("button").forEach(btn=>{
+
+btn.addEventListener(
+
+"click",
+
+function(){
+
+document
+.querySelectorAll("button")
+.forEach(
+
+b=>b.classList.remove(
+
+"active-btn"
+
+)
+
+);
+
+this.classList.add(
+
+"active-btn"
+
+);
+
+}
+
+);
+
+});
+function startJson(){
+
+    fetch('/play_json')
+    .then(res=>res.json())
+    .then(data=>{
+
+        log(data.status);
+
+    });
+
+}
+function openBLE() {
+    window.location.href = "/ble";
+}
+
+</script>
+
+</body>
+
+</html>
