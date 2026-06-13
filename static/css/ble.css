@@ -1,18 +1,21 @@
 :root{
-    --bg:#0b1220;
-    --card:rgba(17, 28, 46, 0.75);
+    --bg:#070b14;
+    --card:rgba(20, 28, 45, 0.75);
     --border:rgba(255,255,255,0.08);
     --accent:#00d4ff;
     --accent2:#0099ff;
     --text:#ffffff;
     --muted:#94a3b8;
+    --success:#22c55e;
+    --danger:#ef4444;
 }
 
+/* RESET */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body{
@@ -20,142 +23,139 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    gap:18px;
-
-    /* premium dark gradient */
     background:
-    radial-gradient(circle at 10% 10%, #1b3a6b 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, #001a33 0%, transparent 45%),
-    #060b14;
+    radial-gradient(circle at top, #1b3a6b 0%, transparent 50%),
+    radial-gradient(circle at bottom, #001a33 0%, transparent 50%),
+    var(--bg);
 
-    padding:18px;
-
+    padding:16px;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== CONTAINER ===== */
+/* CONTAINER */
 .container{
     width:100%;
-    max-width:1200px;
+    max-width:450px;
 }
 
-/* ===== TITLE ===== */
-h1{
+/* HEADER */
+.header{
     text-align:center;
     margin-bottom:20px;
-    color:var(--text);
-    font-size:34px;
-    letter-spacing:1.5px;
-    font-weight:700;
 }
 
-/* ===== GLASS CARD ===== */
-.card{
+.logo{
+    width:70px;
+    height:70px;
+    margin:0 auto 10px;
+
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:30px;
+
+    box-shadow:0 0 20px rgba(0,212,255,0.4);
+}
+
+h1{
+    color:white;
+    font-size:22px;
+    margin-bottom:5px;
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* BUTTONS */
+button{
     width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:0.25s;
+}
+
+/* SCAN */
+#scanBtn{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#001018;
+    margin-bottom:15px;
+}
+
+#scanBtn:active{
+    transform:scale(0.98);
+}
+
+/* CARD */
+.card{
     background:var(--card);
-    backdrop-filter: blur(18px);
+    backdrop-filter:blur(18px);
 
     border:1px solid var(--border);
     border-radius:18px;
 
-    padding:22px;
+    padding:18px;
+    margin-bottom:15px;
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,0.4),
-    0 0 20px rgba(0,212,255,0.08);
-
-    margin-bottom:18px;
-
-    transition: all 0.25s ease;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
-.card:hover{
-    transform: translateY(-3px);
-    box-shadow:
-    0 12px 30px rgba(0,0,0,0.5),
-    0 0 30px rgba(0,212,255,0.15);
-}
-
-/* ===== CARD HEADER ===== */
+/* CARD TITLE */
 .card h3{
-    margin-bottom:16px;
     color:var(--accent);
+    margin-bottom:12px;
     text-align:center;
-    font-size:18px;
-    letter-spacing:0.5px;
+    font-size:16px;
 }
 
-/* ===== TEXT ===== */
-p{
+/* ROW */
+.row{
+    display:flex;
+    justify-content:space-between;
     margin:10px 0;
+}
+
+.label{
     color:var(--muted);
-    font-size:14px;
-    line-height:1.4;
+    font-size:13px;
 }
 
-span{
-    color:var(--text);
-    font-weight:600;
-}
-
-/* ===== BUTTON (GLOBAL) ===== */
-button{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:12px;
-
-    font-size:14px;
-    font-weight:600;
-
-    cursor:pointer;
-    transition: all 0.25s ease;
-
-    outline:none;
-}
-
-/* ===== PRIMARY BUTTON ===== */
-#scanBtn{
-    margin-bottom:16px;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-    color:#001018;
-    font-weight:700;
-}
-
-#scanBtn:hover{
-    transform: translateY(-3px);
-    box-shadow:0 0 25px rgba(0,212,255,0.35);
-}
-
-/* ===== SUCCESS BUTTON ===== */
-#sendBtn{
-    margin-top:10px;
-    background:linear-gradient(135deg,#22c55e,#16a34a);
+.value{
     color:white;
+    font-weight:600;
 }
 
-#sendBtn:hover{
-    transform: translateY(-3px);
-    box-shadow:0 0 20px rgba(34,197,94,0.35);
+/* STATUS */
+.disconnected{
+    color:var(--danger);
 }
 
-/* ===== INPUT ===== */
+/* INPUT */
 input{
     width:100%;
     padding:14px;
     margin-top:12px;
 
-    border-radius:14px;
+    border-radius:12px;
     border:1px solid var(--border);
 
-    background:rgba(10, 18, 32, 0.9);
-    color:var(--text);
+    background:rgba(10,18,32,0.9);
+    color:white;
 
-    font-size:16px;   /* FIXED (was 40px ❌) */
+    font-size:15px;
 
     outline:none;
-    transition:0.25s ease;
 }
 
 input:focus{
@@ -163,111 +163,44 @@ input:focus{
     box-shadow:0 0 12px rgba(0,212,255,0.25);
 }
 
-input::placeholder{
-    color:#64748b;
+/* SEND BUTTON */
+#sendBtn{
+    margin-top:14px;
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    color:white;
 }
 
-/* ===== LOGO ===== */
-.logo{
-    width:85px;
-    height:85px;
-
-    margin:0 auto 15px;
-
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:38px;
-    color:#001018;
-
-    box-shadow:0 0 25px rgba(0,212,255,0.35);
+#sendBtn:active{
+    transform:scale(0.98);
 }
 
-/* ===== STATUS ===== */
-#deviceName{
-    color:var(--accent);
-}
-
-#status{
-    color:#22c55e;
-    font-weight:600;
-}
-
-/* =========================
-   📱 RESPONSIVE DESIGN
-   ========================= */
-
-/* TABLET */
-@media (max-width: 900px){
-
-    .container{
-        max-width:95%;
-    }
-
-    h1{
-        font-size:28px;
-    }
-
-    .card{
-        padding:18px;
-    }
-}
-
-/* MOBILE */
+/* 📱 MOBILE OPTIMIZED */
 @media (max-width: 600px){
 
     body{
-        padding:0;              /* FULL SCREEN */
-        gap:12px;
+        padding:10px;
     }
 
     .container{
         max-width:100%;
-        width:100%;
     }
-
-    h1{
-        font-size:22px;
-        padding:10px;
-    }
-
-    .card{
-        width:100%;
-        margin:10px;
-        padding:18px;
-        border-radius:18px;
-    }
-
-    button{
-        font-size:14px;
-        padding:14px;
-        border-radius:12px;
-    }
-
-    input{
-        font-size:16px;
-        padding:14px;
-        border-radius:12px;
-    }
-
-    .logo{
-        width:70px;
-        height:70px;
-        font-size:28px;
-    }
-}
-/* SMALL MOBILE */
-@media (max-width: 400px){
 
     h1{
         font-size:20px;
     }
 
     .card{
-        padding:12px;
+        padding:16px;
+        border-radius:16px;
+    }
+
+    button{
+        font-size:14px;
+        padding:14px;
+    }
+
+    input{
+        font-size:14px;
+        padding:13px;
     }
 }
