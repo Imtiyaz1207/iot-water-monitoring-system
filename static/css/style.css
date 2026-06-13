@@ -16,7 +16,7 @@ linear-gradient(
 #5a56c7
 );
 
-color:white;
+color:rgb(247, 244, 244);
 
 padding:15px;
 
@@ -40,7 +40,7 @@ margin-bottom:20px;
 
 .title{
 
-font-size:32px;
+font-size:26px;
 
 font-weight:700;
 
@@ -52,7 +52,7 @@ letter-spacing:1px;
 
 font-size:20px;
 
-color:#38bdf8;
+color:#020a0e;
 
 }
 
