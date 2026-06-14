@@ -425,43 +425,6 @@ Thread(
     daemon=True
 ).start()
 
-# ================= RANDOM ================= old 10/06/26
-'''  
-def random_commands():
-
-    global mode
-
-    while True:
-
-        if mode == "RANDOM":
-
-            cmd = random.choice(
-
-                commands
-
-            )
-
-            mqtt_client.publish(
-
-                ACTION_TOPIC,
-
-                json.dumps({
-
-                    "command":cmd
-
-                })
-
-            )
-
-            log_command(
-
-                cmd
-
-            )
-
-        time.sleep(3) '''
-
-
 
     
 # new 10/06/26  random commands with uuid and pending command tracking
@@ -516,33 +479,7 @@ Thread(
 
 ).start()
 
-# neww-----------------------09---------old 10/06/26
-'''
-def load_json_commands():
 
-    with open("json.txt", "r") as f:
-        data = json.load(f)
-
-    for item in data:
-
-        if item["Is_Actionable"]:
-
-            cmd = command_map.get(
-                item["Command"],
-                "Neutral"
-            )
-
-            mqtt_client.publish(
-                ACTION_TOPIC,
-                json.dumps({
-                    "command": cmd
-                })
-            )
-
-            print("Sent:", cmd)
-
-            time.sleep(2)
-'''
 # new 10/06/26 loading json commands with uuid and pending command tracking
 def load_json_commands():
 
@@ -601,8 +538,6 @@ def load_json_commands():
 
             time.sleep(2)
 
-
-
 # ================= ROUTES =================
 
 @app.route("/")
@@ -624,35 +559,8 @@ def status():
         latest_data
 
     )
-# old 10/06/26 route
-'''
-@app.route("/device/<command>")
 
-def control(command):
 
-    mqtt_client.publish(
-
-        ACTION_TOPIC,
-
-        json.dumps({
-
-            "command":command
-
-        })
-
-    )
-
-    log_command(
-
-        command
-
-    )
-
-    return jsonify({
-
-        "success":True
-
-    }) '''
 # new 10/06/26
 
 @app.route("/device/<command>")
@@ -693,20 +601,7 @@ def control(command):
         "success": False
     })
 
-# old modes
-'''@app.route("/mode/<newmode>")
 
-def change_mode(newmode):
-
-    global mode
-
-    mode = newmode.upper()
-
-    return jsonify({
-
-        "mode":mode
-
-    })'''
 
 # new modes  09
 
@@ -731,23 +626,7 @@ def change_mode(newmode):
     })
 
 
-# old route    09
 
-'''
-@app.route("/play_json")
-def play_json():
-
-    Thread(
-        target=load_json_commands,
-        daemon=True
-    ).start()
-
-    return jsonify({
-
-        "status":"JSON Playback Started"
-
-    })
-'''
 # new modes 09 
 @app.route("/play_json")
 def play_json():
@@ -782,20 +661,6 @@ def ble():
 
 
 # ================= RUN =================
-'''
-if __name__=="__main__":
-
-    socketio.run(
-
-        app,
-
-        host="0.0.0.0",
-
-        port=5000,
-
-        debug=True
-
-    )   '''
 
 if __name__ == "__main__":
 
