@@ -243,7 +243,8 @@ chart.update();
 
 );
 
-document.querySelectorAll("button").forEach(btn=>{
+document.querySelectorAll(".controls button")
+.forEach(btn=>{
 
 btn.addEventListener(
 
@@ -252,7 +253,7 @@ btn.addEventListener(
 function(){
 
 document
-.querySelectorAll("button")
+.querySelectorAll(".controls button")
 .forEach(
 
 b=>b.classList.remove(
@@ -288,3 +289,96 @@ function startJson(){
 function openBLE() {
     window.location.href = "/ble";
 }
+
+
+
+// new sytle functions
+
+/* ================= MENU ================= */
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const sideMenu =
+document.getElementById("sideMenu");
+
+menuBtn.addEventListener("click",()=>{
+
+    sideMenu.classList.toggle("open");
+
+});
+
+/* ================= PANELS ================= */
+
+function hideAllPanels(){
+
+    document.getElementById(
+        "chartCard"
+    ).style.display="none";
+
+    document.getElementById(
+        "tankCard"
+    ).style.display="none";
+
+    document.getElementById(
+        "activityCard"
+    ).style.display="none";
+
+    document.getElementById(
+        "statusCard"
+    ).style.display="none";
+
+}
+
+function showDashboard(){
+
+    hideAllPanels();
+
+    sideMenu.classList.remove(
+        "open"
+    );
+
+}
+
+function showSection(section){
+
+    hideAllPanels();
+
+    if(section==="chart"){
+
+        document.getElementById(
+            "chartCard"
+        ).style.display="block";
+
+    }
+
+    if(section==="tank"){
+
+        document.getElementById(
+            "tankCard"
+        ).style.display="flex";
+
+    }
+
+    if(section==="activity"){
+
+        document.getElementById(
+            "activityCard"
+        ).style.display="block";
+
+    }
+
+    if(section==="status"){
+
+        document.getElementById(
+            "statusCard"
+        ).style.display="block";
+
+    }
+
+    sideMenu.classList.remove(
+        "open"
+    );
+
+}
+showDashboard();

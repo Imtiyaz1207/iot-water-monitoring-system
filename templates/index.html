@@ -24,38 +24,59 @@
 <!-- ================= HEADER ================= -->
 <div class="header">
 
-    <div class="title">
-        SMART DASHBOARD FOR TESTING 
+    <div class="header-left">
+
+        <button id="menuBtn" class="menu-btn">
+            ☰
+        </button>
+
+        <div class="title">
+            SMART DASHBOARD FOR TESTING
+        </div>
+
     </div>
 
     <div id="clock" class="clock"></div>
 
 </div>
 
+
+
+<div id="sideMenu" class="side-menu">
+
+
+    
+
+    <h2>MENU</h2>
+
+    <button onclick="showDashboard()">
+        Dashboard
+    </button>
+
+    <button onclick="showSection('chart')">
+        Charts
+    </button>
+
+    <button onclick="showSection('tank')">
+        Water Tank
+    </button>
+
+    <button onclick="showSection('activity')">
+        Activity
+    </button>
+
+    <button onclick="showSection('status')">
+        System Info
+    </button>
+
+</div>
+
+
+
+
+
 <!-- ================= MAIN LAYOUT ================= -->
 <div class="container">
-
-    <!-- ================= SIDEBAR ================= -->
-    <div class="sidebar">
-
-        <h2>System Panel</h2>
-
-        <div class="side-box">
-            ACK:
-            <div id="ackStatus">WAITING...</div>
-        </div>
-
-        <div class="side-box">
-            Mode:
-            <div id="modeStatus">MANUAL</div>
-        </div>
-
-        <div class="side-box">
-            Activity
-            <div id="activity" class="activity"></div>
-        </div>
-
-    </div>
 
     <!-- ================= MAIN CONTENT ================= -->
     <div class="main">
@@ -107,28 +128,7 @@
 
         </div>
 
-        <!-- ================= WATER TANK + CHART ================= -->
-        <div class="middle">
-
-            <!-- WATER TANK -->
-            <div class="card tank-card">
-
-                <div class="tank">
-
-                    <div id="waterFill" class="water"></div>
-
-                    <div id="tankText" class="water-text">0%</div>
-
-                </div>
-
-            </div>
-
-            <!-- CHART -->
-            <div class="card">
-                <canvas id="waterChart"></canvas>
-            </div>
-
-        </div>
+    
 
         <!-- ================= MODE CONTROL ================= -->
         <div class="control">
@@ -165,6 +165,56 @@
             <button onclick="openBLE()">📡 BLE Provisioning</button>
 
         </div>
+       
+        <div id="tankCard" class="card">
+
+    <div class="tank">
+
+        <div id="waterFill" class="water"></div>
+
+        <div id="tankText" class="water-text">
+            0%
+        </div>
+
+    </div>
+
+</div>
+
+<div id="chartCard" class="card">
+
+    <canvas id="waterChart"></canvas>
+
+</div>
+
+<div id="activityCard" class="card">
+
+    <h3>Activity Log</h3>
+
+    <div id="activity" class="activity"></div>
+
+</div>
+
+<div id="statusCard" class="card">
+
+    <h3>System Information</h3>
+
+    <br>
+
+    ACK :
+    <div id="ackStatus">
+        WAITING...
+    </div>
+
+    <br>
+
+    Mode :
+    <div id="modeStatus">
+        MANUAL
+    </div>
+
+</div>
+
+
 
     </div>
 
