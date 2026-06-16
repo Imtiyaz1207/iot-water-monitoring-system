@@ -68,7 +68,7 @@ mode = "MANUAL"
 
 commands = [
 
-    "Up",
+    "Rotate",
     "Down",
     "Left",
     "Right",
@@ -85,7 +85,7 @@ commands = [
 
 command_map = {
 
-    "Lift": "Up",
+    "Lift": "Rotate",
     "Drop": "Down",
 
     "Push": "Push",

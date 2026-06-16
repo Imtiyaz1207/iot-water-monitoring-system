@@ -98,21 +98,21 @@ document.getElementById(
 data.water+"%";
 
 updateStatus(
-
-"upStatus",
-
-data.up
+// neww 16/06 7pm
+"RotateStatus",
+//new 
+data.Rotate
 
 );
 
 updateStatus(
 
-"downStatus",
+"LiftStatus",
 
-data.down
+data.Lift
 
 );
-
+// new
 updateStatus(
 
 "leftStatus",
