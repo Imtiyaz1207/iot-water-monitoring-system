@@ -11,7 +11,7 @@ import uuid  # new 10/06/26
 
 # ================= MQTT TOPICS =================
 
-TOPIC_PREFIX = "iot/smarttank"
+TOPIC_PREFIX = "shaik/home"
 
 ACTION_TOPIC = f"{TOPIC_PREFIX}/actions"
 STATUS_TOPIC = f"{TOPIC_PREFIX}/status" 
